@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "XXYPageView.h"
+#import "GLYPageView.h"
 
 //  自适应宽度和高度
 #define SCREEN_WIDTH    [UIScreen mainScreen].bounds.size.width
@@ -24,10 +24,10 @@
 // home indicator
 #define HOME_INDICATOR_HEIGHT (IS_IPHONEX ? 34.f : 0.f)
 
-@interface ViewController ()
+@interface ViewController ()<UIScrollViewDelegate,GLYPageViewDelegate>
 
 @property (nonatomic, assign) CGFloat      startOffsetX;
-@property (nonatomic ,strong) XXYPageView  *pageView;
+@property (nonatomic ,strong) GLYPageView  *pageView;
 @property (nonatomic ,strong) UIScrollView *contentScrollView;
 
 @end
@@ -44,7 +44,7 @@
     [navBar setBackgroundColor:[UIColor colorWithRed:248.f/255.f green:248.f/255.f blue:248.f/255.f alpha:1.f]];
     [self.view addSubview:navBar];
     
-    self.pageView = [[XXYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"最新",@"最热的帖子",@"最潮的我",@"这一天天的也真是",@"完美"]];
+    self.pageView = [[GLYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"最新",@"最热的帖子",@"最潮的我",@"这一天天的也真是",@"完美"]];
     self.pageView.imagesArray = @[@"NewestSelected",@"Hottest",@"Hottest",@"Hottest",@"Hottest"];
     self.pageView.delegate = self;
     [self.pageView initalUI];
@@ -88,7 +88,7 @@
 }
 
 #pragma mark -
-#pragma mark XXYPageViewDelegate
+#pragma mark GLYPageViewDelegate
 - (void)pageViewSelectdIndex:(NSInteger)index
 {
     [self.contentScrollView setContentOffset:CGPointMake(index * SCREEN_WIDTH, 0)];
