@@ -1,5 +1,5 @@
 //
-//  XXYPageView.h
+//  GLYPageView.h
 //  YGXXY
 //
 //  Created by Jason on 2018/10/31.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol XXYPageViewDelegate <NSObject>
+@protocol GLYPageViewDelegate <NSObject>
 
 - (void)pageViewSelectdIndex:(NSInteger)index;
 
@@ -16,9 +16,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XXYPageView : UIView
+@interface GLYPageView : UIView
 
-@property (nonatomic ,weak) id <XXYPageViewDelegate> delegate;
+@property (nonatomic ,weak) id <GLYPageViewDelegate> delegate;
 
 /**
  图片数组，可不传

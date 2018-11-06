@@ -15,7 +15,7 @@
 		960485342191CD57000CCCB6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 960485332191CD57000CCCB6 /* main.m */; };
 		9604853E2191CD58000CCCB6 /* PageViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9604853D2191CD58000CCCB6 /* PageViewDemoTests.m */; };
 		960485492191CD58000CCCB6 /* PageViewDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 960485482191CD58000CCCB6 /* PageViewDemoUITests.m */; };
-		9604855B2191D1C0000CCCB6 /* XXYPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9604855A2191D1C0000CCCB6 /* XXYPageView.m */; };
+		9604855F2191D849000CCCB6 /* GLYPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9604855E2191D849000CCCB6 /* GLYPageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +52,8 @@
 		960485442191CD58000CCCB6 /* PageViewDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PageViewDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		960485482191CD58000CCCB6 /* PageViewDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageViewDemoUITests.m; sourceTree = "<group>"; };
 		9604854A2191CD58000CCCB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		960485592191D1C0000CCCB6 /* XXYPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXYPageView.h; sourceTree = "<group>"; };
-		9604855A2191D1C0000CCCB6 /* XXYPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXYPageView.m; sourceTree = "<group>"; };
+		9604855D2191D849000CCCB6 /* GLYPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLYPageView.h; sourceTree = "<group>"; };
+		9604855E2191D849000CCCB6 /* GLYPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLYPageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +104,7 @@
 		960485232191CD41000CCCB6 /* PageViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				960485582191D1C0000CCCB6 /* XXYPageView */,
+				9604855C2191D849000CCCB6 /* GLYPageView */,
 				960485242191CD41000CCCB6 /* AppDelegate.h */,
 				960485252191CD41000CCCB6 /* AppDelegate.m */,
 				960485272191CD41000CCCB6 /* ViewController.h */,
@@ -136,14 +136,14 @@
 			path = PageViewDemoUITests;
 			sourceTree = "<group>";
 		};
-		960485582191D1C0000CCCB6 /* XXYPageView */ = {
+		9604855C2191D849000CCCB6 /* GLYPageView */ = {
 			isa = PBXGroup;
 			children = (
-				960485592191D1C0000CCCB6 /* XXYPageView.h */,
-				9604855A2191D1C0000CCCB6 /* XXYPageView.m */,
+				9604855D2191D849000CCCB6 /* GLYPageView.h */,
+				9604855E2191D849000CCCB6 /* GLYPageView.m */,
 			);
-			name = XXYPageView;
-			path = ../../XXYPageView;
+			name = GLYPageView;
+			path = ../../GLYPageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,8 +276,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9604855F2191D849000CCCB6 /* GLYPageView.m in Sources */,
 				960485292191CD41000CCCB6 /* ViewController.m in Sources */,
-				9604855B2191D1C0000CCCB6 /* XXYPageView.m in Sources */,
 				960485342191CD57000CCCB6 /* main.m in Sources */,
 				960485262191CD41000CCCB6 /* AppDelegate.m in Sources */,
 			);

@@ -1,12 +1,12 @@
 //
-//  XXYPageView.m
+//  GLYPageView.m
 //  YGXXY
 //
 //  Created by Jason on 2018/10/31.
 //  Copyright © 2018年 Jason. All rights reserved.
 //
 
-#import "XXYPageView.h"
+#import "GLYPageView.h"
 
 static const NSInteger kBastTag          = 100;
 static const CGFloat   kScrollViewHeight = 40.f;
@@ -14,7 +14,7 @@ static const CGFloat   kScrollViewHeight = 40.f;
 static const CGFloat   kImageWidth       = 12.f;
 static const CGFloat   kImageHeight      = 12.f;
 
-@interface XXYPageView ()
+@interface GLYPageView ()
 
 /**
  scrollView离父视图上边的距离
@@ -28,7 +28,7 @@ static const CGFloat   kImageHeight      = 12.f;
 
 @end
 
-@implementation XXYPageView
+@implementation GLYPageView
 
 - (instancetype)initWithFrame:(CGRect)frame titlesArray:(NSArray *)titlesArray
 {
