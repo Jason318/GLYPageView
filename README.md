@@ -1,6 +1,6 @@
 # GLYPageView
 
-最近在做一个项目，需要一个带图标的标签栏，在网上找了好多，都没有合适的，于是就自己写了一个。
+最近在做一个项目，需要一个带图标的标签栏，在网上找了好多，都没有合适的，于是就自己写了一个，图标可选，可添加可不添加。
 
 #### 带图标的
 
@@ -12,11 +12,23 @@
 
 ## 安装：
 
-可用Cocoapods安装:
+通过Cocoapods安装:
 
 pod 'GLYPageView', '~> 0.0.1'
 
-介绍：
+## 介绍：
 
-使用很简单，一共就4步
+使用很简单，就几个步骤。
+
+#### 1.初始化
+
+```
+self.pageView = [[GLYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"哈哈",@"这一天天的",@"真是酸爽",@"的一批",@"啊"]];
+self.pageView.imagesArray = @[@"NewestSelected",@"Hottest",@"Hottest",@"Hottest",@"Hottest"];
+self.pageView.delegate = self;
+[self.pageView initalUI];
+[self.view addSubview:self.pageView];
+```
+
+
 
