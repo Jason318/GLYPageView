@@ -23,11 +23,40 @@ pod 'GLYPageView', '~> 0.0.1'
 #### 1.初始化
 
 ```
-self.pageView = [[GLYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"哈哈",@"这一天天的",@"真是酸爽",@"的一批",@"啊"]];
+self.pageView = [[GLYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"最新",@"最热的帖子",@"最潮的我",@"这一天天的也真是",@"完美"]];
 self.pageView.imagesArray = @[@"NewestSelected",@"Hottest",@"Hottest",@"Hottest",@"Hottest"];
 self.pageView.delegate = self;
 [self.pageView initalUI];
 [self.view addSubview:self.pageView];
+```
+像显不显示图片、字体大小、图标与字体之间的间距、字体与右边界的距离、字体颜色、字体选择状态下的颜色、小线条的颜色等都可在初始化的时候自定义。
+
+#### 2.实现外层ScrollView的2个代理方法
+
+实现这个方法是为了记录每次拖动ScrollView的起点self.startOffsetX
+
+```
+#pragma mark -
+#pragma mark UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    self.startOffsetX = scrollView.contentOffset.x;
+}
+
+//totalPage外层ScrollView的总页码
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.pageView externalScrollView:scrollView totalPage:5 startOffsetX:self.startOffsetX];
+}
+```
+
+#### 3.实现GLYPageViewDelegate
+
+```
+- (void)pageViewSelectdIndex:(NSInteger)index
+{
+    [self.contentScrollView setContentOffset:CGPointMake(index * SCREEN_WIDTH, 0)];
+}
 ```
 
 
