@@ -10,13 +10,15 @@
 
 ![Image text](https://github.com/Jason318/GLYPageView/blob/master/READMEIMAGES/8A1A06E02C6808FEC7020555C310E062.gif)
 
-## 安装：
+## 导入：
 
-通过Cocoapods安装:
+1.通过Cocoapods安装:
 
 pod 'GLYPageView', '~> 0.0.1'
 
-## 介绍：
+2.直接把GLYPageView文件夹拖入项目
+
+## 使用：
 
 使用很简单，就3个步骤就可实现此功能。
 
