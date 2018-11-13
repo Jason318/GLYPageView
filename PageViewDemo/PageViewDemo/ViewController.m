@@ -44,8 +44,8 @@
     [navBar setBackgroundColor:[UIColor colorWithRed:248.f/255.f green:248.f/255.f blue:248.f/255.f alpha:1.f]];
     [self.view addSubview:navBar];
     
-    self.pageView = [[GLYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"哈哈",@"这一天天的",@"真是酸爽",@"的一批",@"啊"]];
-//    self.pageView.imagesArray = @[@"NewestSelected",@"Hottest",@"Hottest",@"Hottest",@"Hottest"];
+    self.pageView = [[GLYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"最新",@"最热的帖子",@"最潮的我",@"这一天天的也真是",@"完美"]];
+    self.pageView.imagesArray = @[@"NewestSelected",@"Hottest",@"Hottest",@"Hottest",@"Hottest"];
     self.pageView.delegate = self;
     [self.pageView initalUI];
     [self.view addSubview:self.pageView];
@@ -84,14 +84,17 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.pageView externalScrollView:scrollView totalPage:5 startOffsetX:self.startOffsetX];
+    if (scrollView.isDragging || scrollView.isDecelerating)
+    {
+        [self.pageView externalScrollView:scrollView totalPage:5 startOffsetX:self.startOffsetX];
+    }
 }
 
 #pragma mark -
 #pragma mark GLYPageViewDelegate
 - (void)pageViewSelectdIndex:(NSInteger)index
 {
-    [self.contentScrollView setContentOffset:CGPointMake(index * SCREEN_WIDTH, 0)];
+    [self.contentScrollView setContentOffset:CGPointMake(index * SCREEN_WIDTH, 0) animated:YES];
 }
 
 

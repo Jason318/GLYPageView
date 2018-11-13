@@ -299,7 +299,7 @@ CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
     [UIView animateWithDuration:0.3f animations:^{
         [self.lineView setFrame:newLineFrame];
     }];
-    
+     
     [self.delegate pageViewSelectdIndex:label.tag - kBastTag];
 }
 
