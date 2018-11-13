@@ -55,7 +55,10 @@ self.pageView.delegate = self;
 //totalPage外层ScrollView的总页码
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.pageView externalScrollView:scrollView totalPage:5 startOffsetX:self.startOffsetX];
+    if (scrollView.isDragging || scrollView.isDecelerating)
+    {
+        [self.pageView externalScrollView:scrollView totalPage:5 startOffsetX:self.startOffsetX];
+    }
 }
 ```
 
@@ -64,7 +67,7 @@ self.pageView.delegate = self;
 ```
 - (void)pageViewSelectdIndex:(NSInteger)index
 {
-    [self.contentScrollView setContentOffset:CGPointMake(index * SCREEN_WIDTH, 0)];
+    [self.contentScrollView setContentOffset:CGPointMake(index * SCREEN_WIDTH, 0) animated:YES];
 }
 ```
 
