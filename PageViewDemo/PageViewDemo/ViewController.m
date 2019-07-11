@@ -44,16 +44,21 @@
     [navBar setBackgroundColor:[UIColor colorWithRed:248.f/255.f green:248.f/255.f blue:248.f/255.f alpha:1.f]];
     [self.view addSubview:navBar];
     
-    self.pageView = [[GLYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"最新",@"最热的帖子",@"最潮的我",@"这一天天的也真是",@"完美"]];
-    self.pageView.imagesArray = @[@"NewestSelected",@"Hottest",@"Hottest",@"Hottest",@"Hottest"];
+    self.pageView = [[GLYPageView alloc] initWithFrame:CGRectMake(0.f, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 44.f) titlesArray:@[@"最新",@"最热的帖子",@"最劲爆"]];
+    self.pageView.imagesArray = @[@"NewestSelected",@"Hottest",@"Hottest"];
+    self.pageView.titleFont = [UIFont systemFontOfSize:17.0];
+//    self.pageView.scrollViewBackgroundColor = [UIColor orangeColor];
     self.pageView.delegate = self;
+    self.pageView.imageLeft = 10.0;
+    self.pageView.labelRight = 10.0;
+    self.pageView.space = 10.0;
     [self.pageView initalUI];
     [self.view addSubview:self.pageView];
     
     self.contentScrollView = ({
         
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, KNAVIVIEWHEIGHT, SCREEN_WIDTH , SCREEN_HEIGHT - KNAVIVIEWHEIGHT - TAB_BAR_HEIGHT)];
-        scrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 5.f, 0.f);
+        scrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 3.f, 0.f);
         scrollView.backgroundColor = [UIColor colorWithRed:248.f/255.f green:248.f/255.f blue:248.f/255.f alpha:1.f];
         scrollView.delegate = self;
         scrollView.pagingEnabled = YES;
@@ -86,7 +91,7 @@
 {
     if (scrollView.isDragging || scrollView.isDecelerating)
     {
-        [self.pageView externalScrollView:scrollView totalPage:5 startOffsetX:self.startOffsetX];
+        [self.pageView externalScrollView:scrollView totalPage:3 startOffsetX:self.startOffsetX];
     }
 }
 

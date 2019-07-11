@@ -36,9 +36,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,assign) CGFloat imageLeft;
 
 /**
- 标题居左边的距离(默认值18.f，自己可根据实际情况做修改)
+ 标题居右边的距离(默认值18.f，自己可根据实际情况做修改)
  **/
 @property (nonatomic ,assign) CGFloat labelRight;
+
+/**
+ 标题和线的间距(默认值0.f，最大不能超过10px)
+ **/
+@property (nonatomic ,assign) CGFloat space;
 
 /**
  标题选中状态下的字体颜色(有默认值)
@@ -75,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
  scrollView:外部滚动视图
  totalPage:外部滚动视图总页数
  startOffsetX:每次开始拖拽的起始点位
- 
+
  注意：需要在外部滚动视图代理scrollViewDidScroll不停调用
  **/
 - (void)externalScrollView:(UIScrollView *)scrollView totalPage:(NSInteger)totalPage startOffsetX:(CGFloat)startOffsetX;

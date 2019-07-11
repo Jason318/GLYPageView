@@ -36,31 +36,33 @@ static const CGFloat   kImageHeight      = 12.f;
     if (self)
     {
         self.titlesArray = titlesArray;
-        
-        //10.f为titleLabel离父视图上边的距离，30.f为titleLabel的高度，所以设置frame的高度不得小于40.f。
-        self.scrollViewTop = CGRectGetHeight(frame) - 10.f - 30.f;
-        
+
+        self.space = 0.0;
+
+        //(10.f - self.space)为titleLabel离父视图上边的距离，30.f为titleLabel的高度，所以设置frame的高度不得小于他们的和。
+        self.scrollViewTop = CGRectGetHeight(frame) - (10.f - self.space) - 30.f;
+
         self.scrollViewBackgroundColor = [UIColor colorWithRed:248.f/255.f green:248.f/255.f blue:248.f/255.f alpha:1.f];
-        
+
         self.imageLeft = 18.f;
         self.labelRight = 18.f;
-        
+
         self.selectTitleColor = [UIColor colorWithRed:51.f/255.f green:51.f/255.f blue:51.f/255.f alpha:1.f];
         self.titleColor = [UIColor colorWithRed:102.f/255.f green:102.f/255.f blue:102.f/255.f alpha:1.f];
         self.titleFont = [UIFont systemFontOfSize:14.f];
-        
+
         self.lineBackgroundColor = [UIColor colorWithRed:128.f/255.f green:201.f/255.f blue:205.f/255.f alpha:1.f];
-        
+
         self.isHaveImages = NO;
     }
-    
+
     return self;
 }
 
 - (void)initalUI
 {
     CGFloat imageWidth = self.isHaveImages ? 12.f : 0.f;
-    
+
     //所有item总长度
     CGFloat totalWidth = 0.f;
 
@@ -68,9 +70,9 @@ static const CGFloat   kImageHeight      = 12.f;
     {
         NSString *title = self.titlesArray[i];
         CGFloat titleWidth = widthForValue(title, self.titleFont, 30.f);
-        totalWidth += titleWidth + imageWidth + 2 * self.imageLeft;
+        totalWidth += titleWidth + imageWidth + self.imageLeft + self.labelRight;
     }
-    
+
     /**
      totalWidth如果没有CGRectGetWidth(self.frame))大，则让scrollView的宽等于totalWidth，且contentsize等于totalWidth，
      相反，则让scrollView的宽等于CGRectGetWidth(self.frame))，且contentsize等于totalWidth。
@@ -84,9 +86,9 @@ static const CGFloat   kImageHeight      = 12.f;
     {
         scrollViewWidth = CGRectGetWidth(self.frame);
     }
-    
+
     self.itemScrollView = ({
-        
+
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.scrollViewTop, scrollViewWidth, kScrollViewHeight)];
         scrollView.center = CGPointMake(CGRectGetWidth(self.frame)/2.f, scrollView.center.y);
         scrollView.showsHorizontalScrollIndicator = NO;
@@ -94,9 +96,9 @@ static const CGFloat   kImageHeight      = 12.f;
         scrollView.backgroundColor = self.scrollViewBackgroundColor;
         [self addSubview:scrollView];
         scrollView;
-        
+
     });
-    
+
     //起点位置
     CGFloat startX = 0;
     for (NSInteger i = 0; i < self.titlesArray.count; i++)
@@ -104,16 +106,16 @@ static const CGFloat   kImageHeight      = 12.f;
         UIImageView *imageView = nil;
         if (self.isHaveImages)
         {
-            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(startX + self.imageLeft, 19.f, kImageWidth, kImageHeight)];
+            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(startX + self.imageLeft, 19.f - self.space, kImageWidth, kImageHeight)];
             imageView.contentMode = UIViewContentModeScaleAspectFit;
             imageView.image = [UIImage imageNamed:self.imagesArray[i]];
             [self.itemScrollView addSubview:imageView];
         }
-        
+
         CGFloat titleWidth = widthForValue(self.titlesArray[i], self.titleFont, 30.f);
         CGFloat left  = startX + self.imageLeft + (self.isHaveImages ? kImageWidth : 0.f);
-        
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(left, 10.f, titleWidth, 30.f)];
+
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(left, 10.f - self.space, titleWidth, 30.f)];
         if (i == 0)
         {
             titleLabel.textColor = self.selectTitleColor;
@@ -128,12 +130,12 @@ static const CGFloat   kImageHeight      = 12.f;
         titleLabel.font = self.titleFont;
         titleLabel.tag = kBastTag + i;
         [self.itemScrollView addSubview:titleLabel];
-        
+
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemTapGesture:)];
         [titleLabel addGestureRecognizer:tapGesture];
-        
+
         startX = CGRectGetMaxX(titleLabel.frame) + self.labelRight;
-        
+
         if (i == 0)
         {
             self.lineView = [[UIView alloc] initWithFrame:CGRectMake(self.imageLeft, kScrollViewHeight - 4.f, (self.isHaveImages ? kImageWidth : 0.f) + titleWidth, 4.f)];
@@ -164,16 +166,16 @@ static const CGFloat   kImageHeight      = 12.f;
 CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
 {
     CGRect sizeToFit = [value boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil];
-    
+
     return sizeToFit.size.width + 10.f;
 }
 
 - (CGRect)lineFrameWithLabel:(UIView *)label
 {
     CGRect labelRect = label.frame;
-    
+
     CGFloat titleWidth = widthForValue(self.titlesArray[label.tag - 100], self.titleFont, 30.f);
-    
+
     CGRect lineFrame;
     if (self.isHaveImages)
     {
@@ -183,7 +185,7 @@ CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
     {
         lineFrame = CGRectMake(CGRectGetMinX(labelRect), CGRectGetMinY(self.lineView.frame), titleWidth, 4.f);
     }
-    
+
     return lineFrame;
 }
 
@@ -191,39 +193,39 @@ CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
 {
     //滚动的百分比
     CGFloat progress = 0;
-    
+
     //初始Index
     NSInteger sourceIndex = 0;
-    
+
     //目标Index
     NSInteger targetIndex = 0;
-    
+
     CGFloat currentOffsetX = scrollView.contentOffset.x;
     CGFloat scrollViewW = scrollView.bounds.size.width;
-    
+
     //左滑
     if (currentOffsetX > startOffsetX)
     {
         progress = currentOffsetX / scrollViewW - floorf(currentOffsetX / scrollViewW);
         sourceIndex = (NSInteger)(currentOffsetX / scrollViewW);
         targetIndex = sourceIndex + 1;
-        
+
         if (targetIndex >= totalPage)
         {
             targetIndex = totalPage - 1;
         }
-        
+
         if (currentOffsetX - startOffsetX == scrollViewW)
         {
             progress = 1;
             targetIndex = sourceIndex;
-            
+
             //目标Label
             UIView *targetLabel = [self.itemScrollView viewWithTag:kBastTag + targetIndex];
             CGFloat targetMaxX = CGRectGetMaxX(targetLabel.frame) + self.labelRight;
-            
+
             [self changeTitleColor:targetLabel];
-            
+
             if (targetMaxX > self.itemScrollView.contentOffset.x + self.itemScrollView.bounds.size.width)
             {
                 [self.itemScrollView setContentOffset:CGPointMake(targetMaxX - self.itemScrollView.bounds.size.width, 0.f) animated:YES];
@@ -236,13 +238,13 @@ CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
         progress = 1 - (currentOffsetX / scrollViewW - floorf(currentOffsetX / scrollViewW));
         targetIndex = (NSInteger)(currentOffsetX / scrollViewW);
         sourceIndex = targetIndex + 1;
-        
+
         //scrollView的页码
         if (sourceIndex >= totalPage)
         {
             sourceIndex = totalPage - 1;
         }
-        
+
         //如果targetLabel在屏幕外面，则拉回来
         NSDecimalNumber *progressNumber = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",progress]];
         if ([progressNumber compare:@(1)] == NSOrderedSame)
@@ -250,7 +252,7 @@ CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
             //目标Label
             UIView *targetLabel = [self.itemScrollView viewWithTag:kBastTag + targetIndex];
             CGFloat targetMinX = CGRectGetMinX(targetLabel.frame) - (self.isHaveImages ? kImageWidth : 0.f) - self.imageLeft;
-            
+
             [self changeTitleColor:targetLabel];
 
             if (self.itemScrollView.contentOffset.x > targetMinX)
@@ -259,7 +261,7 @@ CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
             }
         }
     }
-    
+
     [self pageViewProgress:progress sourceIndex:sourceIndex targetIndex:targetIndex];
 }
 
@@ -270,17 +272,17 @@ CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
     //初始label
     UIView *sourceLabel = [self.itemScrollView viewWithTag:kBastTag + sourceIndex];
     CGRect sourceLabelRect = sourceLabel.frame;
-    
+
     //目标Label
     UIView *targetLabel = [self.itemScrollView viewWithTag:kBastTag + targetIndex];
     CGRect targetLabelRect = targetLabel.frame;
-    
+
     //两者间距
     CGFloat spacing = CGRectGetMinX(targetLabelRect) - CGRectGetMinX(sourceLabelRect);
-    
+
     //两者长度差值
     CGFloat lengthDiffer = CGRectGetWidth(targetLabelRect) - CGRectGetWidth(sourceLabelRect);
-    
+
     CGRect sourcelineFrame = [self lineFrameWithLabel:sourceLabel];
     sourcelineFrame.origin.x += spacing * progress;
     sourcelineFrame.size.width += lengthDiffer * progress;
@@ -293,13 +295,13 @@ CGFloat widthForValue(NSString *value, UIFont *font, CGFloat height)
 {
     UIView *label = tapGesture.view;
     CGRect newLineFrame = [self lineFrameWithLabel:label];
-    
+
     [self changeTitleColor:label];
-    
+
     [UIView animateWithDuration:0.3f animations:^{
         [self.lineView setFrame:newLineFrame];
     }];
-     
+
     [self.delegate pageViewSelectdIndex:label.tag - kBastTag];
 }
 
